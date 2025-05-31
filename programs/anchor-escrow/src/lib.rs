@@ -1,9 +1,11 @@
 use anchor_lang::prelude::*;
 
 pub mod contexts;
+// private export to get contexts module usable in this file
 use contexts::*;
 
 pub mod state;
+// public re-export to get the state module and also make it available publicly
 pub use state::*;
 
 declare_id!("6BLPdL9narQPFQsqS7AXuRBRS4VoyKmHHzdwkgnLaAps");
