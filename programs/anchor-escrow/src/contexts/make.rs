@@ -51,6 +51,7 @@ pub struct Make<'info> {
 
 impl<'info> Make<'info> {
     pub fn save_escrow(&mut self, seed: u64, receive: u64, bumps: &MakeBumps) -> Result<()> {
+        // set_inner is an anchor method that replaces the entire content of an account
         self.escrow.set_inner(Escrow {
             seed,
             maker: self.maker.key(),
