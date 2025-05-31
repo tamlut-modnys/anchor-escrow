@@ -15,6 +15,7 @@ pub struct Make<'info> {
     #[account(
         mint::token_program = token_program
     )]
+    // InterfaceAccount deserializes the info into a Mint data structure
     pub mint_a: InterfaceAccount<'info, Mint>,
     #[account(
         mint::token_program = token_program
