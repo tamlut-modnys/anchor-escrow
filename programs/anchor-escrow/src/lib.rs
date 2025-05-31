@@ -12,6 +12,7 @@ declare_id!("6BLPdL9narQPFQsqS7AXuRBRS4VoyKmHHzdwkgnLaAps");
 
 #[program]
 pub mod anchor_escrow {
+    // Imports everything from above into this anchor_escrow module
     use super::*;
 
     pub fn make(ctx: Context<Make>, seed: u64, deposit: u64, receive: u64) -> Result<()> {
