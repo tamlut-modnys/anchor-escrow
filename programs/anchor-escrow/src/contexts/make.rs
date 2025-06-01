@@ -80,6 +80,7 @@ impl<'info> Make<'info> {
         // actual transfer action occurs here
         // transfer_checked needs the decimals of the token as last arg as a safety measure
         // it's an explicit declarataion of intent, not necessary as this is transferred in the cpi in mint
+        // however using self.mint_a.decimals makes it useless
         transfer_checked(cpi_ctx, deposit, self.mint_a.decimals)
 
         // standard 3 step pattern for CPI calls in Anchor:
