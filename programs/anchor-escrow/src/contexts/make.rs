@@ -72,6 +72,8 @@ impl<'info> Make<'info> {
             authority: self.maker.to_account_info(),
         };
         // first arg: program we're calling, second arg: accounts that program needs
+        // cpi is how we invoke other programs on the solana blockchain.
+        // cpi context ensures we have all the necessary info to do so.
         let cpi_ctx = CpiContext::new(self.token_program.to_account_info(), transfer_accounts);
 
         transfer_checked(cpi_ctx, deposit, self.mint_a.decimals)
