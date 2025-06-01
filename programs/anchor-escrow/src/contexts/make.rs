@@ -83,5 +83,12 @@ impl<'info> Make<'info> {
 
         // standard 3 step pattern for CPI calls in Anchor:
         // make accounts struct, create context, then perform the transfer
+
+        /*The Token Program validates:
+        Decimal Match: mint.decimals == provided_decimals
+        Mint Match: Both accounts belong to the same mint
+        Authority: Authority has permission to move funds
+        Sufficient Balance: Source has enough tokens
+        No Overflow: Destination won't overflow */
     }
 }
