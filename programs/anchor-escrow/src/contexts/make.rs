@@ -77,6 +77,7 @@ impl<'info> Make<'info> {
         let cpi_ctx = CpiContext::new(self.token_program.to_account_info(), transfer_accounts);
 
         // actual transfer action occurs here
+        // transfer_checked needs the decimals of the token as last arg as a safety measure
         transfer_checked(cpi_ctx, deposit, self.mint_a.decimals)
     }
 }
