@@ -79,5 +79,8 @@ impl<'info> Make<'info> {
         // actual transfer action occurs here
         // transfer_checked needs the decimals of the token as last arg as a safety measure
         transfer_checked(cpi_ctx, deposit, self.mint_a.decimals)
+
+        // standard 3 step pattern for CPI calls in Anchor:
+        // make accounts struct, create context, then perform the transfer
     }
 }
