@@ -76,6 +76,7 @@ impl<'info> Make<'info> {
         // cpi context ensures we have all the necessary info to do so.
         let cpi_ctx = CpiContext::new(self.token_program.to_account_info(), transfer_accounts);
 
+        // actual transfer action occurs here
         transfer_checked(cpi_ctx, deposit, self.mint_a.decimals)
     }
 }
