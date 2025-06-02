@@ -36,6 +36,7 @@ pub struct Make<'info> {
         bump
     )]
     pub escrow: Account<'info, Escrow>,
+    // creating a new associated token account with the following characteristics
     #[account(
         init,
         payer = maker,
