@@ -51,6 +51,12 @@ pub struct Take<'info> {
         associated_token::token_program = token_program,
     )]
     pub maker_ata_b: Box<InterfaceAccount<'info, TokenAccount>>,
+    // mut since we withdraw and close
+    // close = maker to refund rent to maker
+    // check that the maker, token a, and token b of the escrow match the transaction
+    // uses seeds and bump to verify the transaction initiator provided the correct escrow account
+    // the seeds and bump create the constraint for the provided maker account and the escrow
+    // to fit each other
     #[account(
         mut,
         close = maker,
@@ -61,6 +67,10 @@ pub struct Take<'info> {
         bump = escrow.bump
     )]
     escrow: Account<'info, Escrow>,
+    // although we don't own the vault account (the associated token program does)
+    // we can still mark it as mut to say this instruction needs write access to this acc,
+    // this account will be modified during execution
+    // mut doesn't necessarily mean our program owns this acccount or can write directly to it.
     #[account(
         mut,
         associated_token::mint = mint_a,
@@ -74,6 +84,7 @@ pub struct Take<'info> {
 }
 
 impl<'info> Take<'info> {
+    // &mut self means an automorphism n the set of provided accounts
     pub fn deposit(&mut self) -> Result<()> {
         let transfer_accounts = TransferChecked {
             from: self.taker_ata_b.to_account_info(),
