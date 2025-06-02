@@ -26,7 +26,12 @@ pub struct Refund<'info> {
     maker_ata_a: InterfaceAccount<'info, TokenAccount>,
     #[account(
         mut,
+        // zero out account data, transfer all lamports to the provided account (maker)
+        // and mark account as closed in the solana runtime.
         close = maker,
+        // has_one basically checks that escrow.mint_a = mint_a.key()
+        // escrow.maker = maker.key()
+        // makes sure the refund goes to only the original maker, and escrow must be for provided token
         has_one = mint_a,
         has_one = maker,
         seeds = [b"escrow", maker.key().as_ref(), escrow.seed.to_le_bytes().as_ref()],
