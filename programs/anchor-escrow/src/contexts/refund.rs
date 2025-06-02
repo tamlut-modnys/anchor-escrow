@@ -45,6 +45,10 @@ pub struct Refund<'info> {
         associated_token::token_program = token_program
     )]
     pub vault: InterfaceAccount<'info, TokenAccount>,
+    // 3 standard hard-coded programs that do necessary tasks
+    // associated_token_program generates the default account for a pair of (holder, token)
+    // token program creates new token mints
+    // system program handles user accounts
     associated_token_program: Program<'info, AssociatedToken>,
     token_program: Interface<'info, TokenInterface>,
     system_program: Program<'info, System>,
