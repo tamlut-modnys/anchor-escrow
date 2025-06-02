@@ -57,6 +57,10 @@ pub struct Refund<'info> {
 
 impl<'info> Refund<'info> {
     pub fn refund_and_close_vault(&mut self) -> Result<()> {
+        // PDAs don't have a private key to sign transactions
+        // so they need to sign by providing their seeds
+        // Solana runtime checks that the provided seeds create the PDA...
+        // that is trying to execute the transaction.
         // explain this data structure
         let signer_seeds: [&[&[u8]]; 1] = [&[
             b"escrow",
