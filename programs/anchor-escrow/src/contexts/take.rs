@@ -9,8 +9,13 @@ use crate::Escrow;
 
 #[derive(Accounts)]
 pub struct Take<'info> {
+    // Signer means account must exist and be a regular wallet
+    // must be in transaction signers
+    // transaction must be signed by this account's private key
     #[account(mut)]
     pub taker: Signer<'info>,
+    // However SystemAccount just means has to exist and be a regular wallet
+    // maker is totally passive here
     #[account(mut)]
     pub maker: SystemAccount<'info>,
     pub mint_a: InterfaceAccount<'info, Mint>,
