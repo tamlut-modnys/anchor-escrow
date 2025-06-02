@@ -10,6 +10,9 @@ use crate::Escrow;
 #[derive(Accounts)]
 #[instruction(seed: u64)]
 pub struct Make<'info> {
+    // Signer means account must exist
+    // must be in transaction signers
+    // transaction must be signed by this account's private key
     #[account(mut)]
     pub maker: Signer<'info>,
     #[account(
