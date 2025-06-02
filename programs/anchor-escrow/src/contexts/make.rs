@@ -39,6 +39,7 @@ pub struct Make<'info> {
     // creating a new associated token account with the following characteristics
     // vault is also a PDA but anchor and the associated token program hide some details
     // (no seeds or bump required)
+    // also vault is created by associated token program, while escrow is created by this escrow program
     #[account(
         init,
         payer = maker,
