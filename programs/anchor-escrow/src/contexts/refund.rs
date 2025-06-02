@@ -13,6 +13,9 @@ use crate::Escrow;
 #[derive(Accounts)]
 pub struct Refund<'info> {
     #[account(mut)]
+    // Signer means account must exist
+    // must be in transaction signers
+    // transaction must be signed by this account's private key
     maker: Signer<'info>,
     // previously needed to validate token_program to ensure consistency when creating vault
     // now escrow and vault have already stored the mint, so we check that. no need to also check token_program
