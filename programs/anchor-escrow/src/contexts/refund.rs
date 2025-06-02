@@ -13,7 +13,7 @@ use crate::Escrow;
 #[derive(Accounts)]
 pub struct Refund<'info> {
     #[account(mut)]
-    // Signer means account must exist
+    // Signer means account must exist and be a regular wallet
     // must be in transaction signers
     // transaction must be signed by this account's private key
     maker: Signer<'info>,
