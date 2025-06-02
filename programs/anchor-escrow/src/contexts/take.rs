@@ -29,6 +29,8 @@ pub struct Take<'info> {
         associated_token::token_program = token_program,
     )]
     pub taker_ata_a: Box<InterfaceAccount<'info, TokenAccount>>,
+    // no init since takers account for token b should already exist
+    // mut since we are deducting token b from taker
     #[account(
         mut,
         associated_token::mint = mint_b,
@@ -36,6 +38,11 @@ pub struct Take<'info> {
         associated_token::token_program = token_program,
     )]
     pub taker_ata_b: Box<InterfaceAccount<'info, TokenAccount>>,
+    // create an account if needed for maker to receive token b in exchange
+    // taker also pays for this account to be created.
+    // this ensures the transaction goes through
+    // maker can't pay since they aren't signing this transaction.
+    // we don't want to force maker to be online and sign for this transaction to occur, would defeat escrow purpose.
     #[account(
         init_if_needed,
         payer = taker,
