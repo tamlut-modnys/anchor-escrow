@@ -14,6 +14,8 @@ use crate::Escrow;
 pub struct Refund<'info> {
     #[account(mut)]
     maker: Signer<'info>,
+    // previously needed to validate token_program to ensure consistency when creating vault
+    // now escrow and vault have already stored the mint, so we check that. no need to also check token_program
     mint_a: InterfaceAccount<'info, Mint>,
     #[account(
         mut,
