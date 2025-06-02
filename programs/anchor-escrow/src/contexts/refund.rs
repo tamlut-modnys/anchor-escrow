@@ -64,7 +64,9 @@ impl<'info> Refund<'info> {
             &self.escrow.seed.to_le_bytes()[..],
             &[self.escrow.bump],
         ]];
-
+        // struct for transfer_checked call and CPI
+        // performs various safety checks such as the from account belonging to the authority
+        // and the token mint and of the account matching
         let xfer_accounts = TransferChecked {
             from: self.vault.to_account_info(),
             mint: self.mint_a.to_account_info(),
@@ -80,7 +82,14 @@ impl<'info> Refund<'info> {
 
         transfer_checked(ctx, self.vault.amount, self.mint_a.decimals)?;
 
+        // close the vault account
+        // need to do this as a CPI because the associated token program owns vault
+        // while you own escrow, so you can just close it with the inherited attribute
+        // (which is much easier and automatically transfers the tokens, it knows you have authority)
         let close_accounts = CloseAccount {
+            // the account to close (must have 0 tokens)
+            // where to send the SOL for rent 
+            // the authority to close the account
             account: self.vault.to_account_info(),
             destination: self.maker.to_account_info(),
             authority: self.escrow.to_account_info(),
