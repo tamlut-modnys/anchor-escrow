@@ -104,6 +104,8 @@ impl<'info> Take<'info> {
     // logic is basically same as refund just with different target
     // (double check?)
     pub fn withdraw_and_close_vault(&mut self) -> Result<()> {
+        // signing on behalf of the escrow account
+        // makes sure it's the right account corresponding to the maker
         let signer_seeds: [&[&[u8]]; 1] = [&[
             b"escrow",
             self.maker.to_account_info().key.as_ref(),
