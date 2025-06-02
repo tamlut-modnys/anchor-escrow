@@ -20,6 +20,7 @@ pub struct Take<'info> {
     pub maker: SystemAccount<'info>,
     pub mint_a: InterfaceAccount<'info, Mint>,
     pub mint_b: InterfaceAccount<'info, Mint>,
+    // create an account (if needed) for taker to receive the tokens
     #[account(
         init_if_needed,
         payer = taker,
