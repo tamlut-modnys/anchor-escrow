@@ -84,7 +84,9 @@ pub struct Take<'info> {
 }
 
 impl<'info> Take<'info> {
-    // &mut self means an automorphism n the set of provided accounts
+    // &mut self means a self transformation on the set of provided accounts
+
+    //moves token b from taker's token b account to maker's
     pub fn deposit(&mut self) -> Result<()> {
         let transfer_accounts = TransferChecked {
             from: self.taker_ata_b.to_account_info(),
@@ -98,6 +100,9 @@ impl<'info> Take<'info> {
         transfer_checked(cpi_ctx, self.escrow.receive, self.mint_b.decimals)
     }
 
+    // move token a from vault to taker's token a account
+    // logic is basically same as refund just with different target
+    // (double check?)
     pub fn withdraw_and_close_vault(&mut self) -> Result<()> {
         let signer_seeds: [&[&[u8]]; 1] = [&[
             b"escrow",
