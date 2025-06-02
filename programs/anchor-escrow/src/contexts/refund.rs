@@ -38,6 +38,7 @@ pub struct Refund<'info> {
         bump = escrow.bump
     )]
     escrow: Account<'info, Escrow>,
+    // ensuring this is an associated token account with the following characteristics
     #[account(
         mut,
         associated_token::mint = mint_a,
